@@ -1,0 +1,76 @@
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+
+
+public class UIPanelController : MonoBehaviour
+{
+    #region Self Variables
+
+    #region Serialized Variables
+
+    [SerializeField] private List<Transform> layers = new List<Transform>();
+
+    #endregion
+
+    #endregion
+
+    void OnEnable()
+    {
+        SubscribeEvents();
+    }
+    void OnDisable()
+    {
+        UnSubscribeEvents();
+    }
+
+    private void SubscribeEvents()
+    {
+        CoreUISignals.Instance.onOpenPanel += OnOpenPanel;
+        CoreUISignals.Instance.onClosePanel += OnClosePanel;
+        CoreUISignals.Instance.onCloseAllPanels += OnCloseAllPanels;
+    }
+
+    [Button]
+    private void OnCloseAllPanels()
+    {
+        foreach (var layer in layers)
+        {
+            if (layer.childCount <= 0) return;
+
+#if UNITY_EDITOR
+            DestroyImmediate(layer.GetChild(0).gameObject);
+#else
+            Destroy(layer.GetChild(0).gameObject);
+#endif
+
+
+        }
+    }
+    [Button]
+    private void OnClosePanel(int value)
+    {
+        if (layers[value].childCount <= 0) return;
+
+#if UNITY_EDITOR
+        DestroyImmediate(layers[value].GetChild(0).gameObject);
+#else
+        Destroy(layers[value].GetChild(0).gameObject);
+#endif
+        
+        
+    }
+    [Button]
+    private void OnOpenPanel(UIPanelTypes panelType, int value)
+    {
+        OnClosePanel(value);
+        Instantiate(Resources.Load<GameObject>($"Screens/{panelType}Panel"), layers[value]);
+    }
+
+    private void UnSubscribeEvents()
+    {
+        CoreUISignals.Instance.onOpenPanel -= OnOpenPanel;
+        CoreUISignals.Instance.onClosePanel -= OnClosePanel;
+        CoreUISignals.Instance.onCloseAllPanels -= OnCloseAllPanels;
+    }
+}
