@@ -1,0 +1,78 @@
+using System;
+using UnityEngine;
+using UnityEngine.UI;
+
+
+public class UIEventSubscriber : MonoBehaviour
+{
+    #region Self Variables
+
+    #region Serialized Variables
+
+    [SerializeField] private UIEventSubscriptionTypes type;
+    [SerializeField] private Button button;
+
+    #endregion
+
+    #region Private Variables
+
+    private UIManager _manager;
+
+    #endregion
+
+    #endregion
+
+    void OnEnable()
+    {
+        SubscribeEvents();
+    }
+
+    void OnDisable()
+    {
+        UnSubscribeEvents();
+    }
+
+    void Awake()
+    {
+        GetReferences();
+    }
+    private void SubscribeEvents()
+    {
+        switch (type)
+        {
+            case UIEventSubscriptionTypes.OnPlay:
+                button.onClick.AddListener(_manager.Play);
+                break;
+            case UIEventSubscriptionTypes.OnNextLevel:
+                button.onClick.AddListener(_manager.NextLevel);
+                break;
+            case UIEventSubscriptionTypes.OnRestartLevel:
+                button.onClick.AddListener(_manager.RestartLevel);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+    private void UnSubscribeEvents()
+    {
+        switch (type)
+        {
+            case UIEventSubscriptionTypes.OnPlay:
+                button.onClick.RemoveListener(_manager.Play);
+                break;
+            case UIEventSubscriptionTypes.OnNextLevel:
+                button.onClick.RemoveListener(_manager.NextLevel);
+                break;
+            case UIEventSubscriptionTypes.OnRestartLevel:
+                button.onClick.RemoveListener(_manager.RestartLevel);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+    private void GetReferences()
+    {
+        _manager = FindFirstObjectByType<UIManager>();
+    }
+    
+}
