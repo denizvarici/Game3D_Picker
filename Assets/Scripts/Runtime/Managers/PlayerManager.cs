@@ -77,7 +77,7 @@ public class PlayerManager : MonoBehaviour
 
     private PlayerData GetPlayerData()
     {
-        return = Resources.Load<CD_Player>("Data/CD_Player").Data;
+        return Resources.Load<CD_Player>("Data/CD_Player").Data;
     }
     private void SendDataToControllers()
     {

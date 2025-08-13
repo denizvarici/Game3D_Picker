@@ -45,8 +45,9 @@ public class CameraManager : MonoBehaviour
 
     private void OnSetCameraTarget()
     {
-        //var player = FindFirstObjectByType<PlayerManager>().transform;
-        //virtualCamera.Follow = player;
+        Debug.Log("BURASI ÇALIŞIOR RAHAT OL !");
+        var player = FindFirstObjectByType<PlayerManager>().transform;
+        virtualCamera.Follow = player;
         //virtualCamera.LookAt = player;
     }
 

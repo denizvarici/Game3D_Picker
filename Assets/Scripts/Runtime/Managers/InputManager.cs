@@ -111,11 +111,11 @@ public class InputManager : MonoBehaviour
                     }
                     else if (mouseDeltaPos.x < _data.HorizontalInputSpeed)
                     {
-                        _moveVector.x = -_data.HorizontalInputSpeed / 10f * mouseDeltaPos.x;
+                        _moveVector.x = -_data.HorizontalInputSpeed / 10f * -mouseDeltaPos.x;
                     }
                     else
                     {
-                        _moveVector.x = Mathf.SmoothDamp(-_moveVector.x, 0f, ref _currentVelocity, _data.ClampSpeed);
+                        _moveVector.x = Mathf.SmoothDamp(_moveVector.x, 0f, ref _currentVelocity, _data.ClampSpeed);
                     }
 
                     _mousePosition = Input.mousePosition;
