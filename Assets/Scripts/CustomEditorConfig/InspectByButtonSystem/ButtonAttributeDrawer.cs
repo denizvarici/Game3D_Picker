@@ -12,10 +12,17 @@ public class ButtonAttributeDrawer : Editor
 
     public override void OnInspectorGUI()
     {
+        // target null ise devam etme
+        if (target == null) return;
+
         base.OnInspectorGUI();
 
         var targetType = target.GetType();
-        var methods = targetType.GetMethods(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly);
+        if (targetType == null) return;
+
+        var methods = targetType.GetMethods(
+            BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly
+        );
 
         foreach (var method in methods)
         {
@@ -48,8 +55,11 @@ public class ButtonAttributeDrawer : Editor
                     methodInputs[methodKey][i] = EditorGUILayout.Toggle(param.Name, currentValue != null ? (bool)currentValue : false);
                 else if (paramType == typeof(byte))
                     methodInputs[methodKey][i] = (byte)EditorGUILayout.IntField(param.Name, currentValue != null ? Convert.ToInt32(currentValue) : 0);
-                else if (paramType.IsEnum) // ← ENUM desteği
-                    methodInputs[methodKey][i] = EditorGUILayout.EnumPopup(param.Name, currentValue != null ? (Enum)currentValue : (Enum)Enum.GetValues(paramType).GetValue(0));
+                else if (paramType.IsEnum) // ENUM desteği
+                    methodInputs[methodKey][i] = EditorGUILayout.EnumPopup(
+                        param.Name,
+                        currentValue != null ? (Enum)currentValue : (Enum)Enum.GetValues(paramType).GetValue(0)
+                    );
                 else
                     EditorGUILayout.LabelField($"{param.Name}: (Unsupported type {paramType.Name})");
             }

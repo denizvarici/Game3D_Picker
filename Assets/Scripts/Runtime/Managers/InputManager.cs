@@ -125,6 +125,7 @@ public class InputManager : MonoBehaviour
                         HorizontalValue = _moveVector.x,
                         ClampValues = _data.ClampValues
                     });
+                    Debug.LogWarning($"Executed ----> OnInputDraggged");
                 }
 
             }
