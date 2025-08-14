@@ -15,5 +15,21 @@ MonoBehaviour:
   Levels:
   - Pools:
     - RequiredObjectCount: 10
-    - RequiredObjectCount: 20
-    - RequiredObjectCount: 30
+    - RequiredObjectCount: 10
+    - RequiredObjectCount: 10
+  - Pools:
+    - RequiredObjectCount: 10
+    - RequiredObjectCount: 10
+    - RequiredObjectCount: 10
+  - Pools:
+    - RequiredObjectCount: 10
+    - RequiredObjectCount: 10
+    - RequiredObjectCount: 10
+  - Pools:
+    - RequiredObjectCount: 10
+    - RequiredObjectCount: 10
+    - RequiredObjectCount: 10
+  - Pools:
+    - RequiredObjectCount: 10
+    - RequiredObjectCount: 10
+    - RequiredObjectCount: 10

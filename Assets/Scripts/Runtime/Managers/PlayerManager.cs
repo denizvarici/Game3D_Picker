@@ -107,6 +107,7 @@ public class PlayerManager : MonoBehaviour
     private void OnStageAreaSuccessful(byte value)
     {
         StageValue = (byte)++value;
+        movementController.IsReadyToPlay(true);
     }
 
     private void OnStageAreaEntered()
@@ -121,7 +122,7 @@ public class PlayerManager : MonoBehaviour
 
     private void OnLevelSuccessful()
     {
-        movementController.IsReadyToPlay(false);
+        movementController.IsReadyToPlay(true);
     }
 
     private void OnPlay()

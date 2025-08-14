@@ -74,25 +74,28 @@ public class InputManager : MonoBehaviour
 
     void Update()
     {
-        if (!_isAvailableForTouch) return;
+        
+        if (!_isAvailableForTouch)
+        {
+            Debug.LogWarning("Hareket sistemi aktif mi : hayır");
+            return;
+        }
 
+        Debug.LogWarning("Hareket sistemi aktif mi : evet");
         if (Input.GetMouseButtonUp(0) && !IsPointerOverUIElement())
         {
             _isTouching = false;
             InputSignals.Instance.onInputReleased?.Invoke();
-            Debug.LogWarning("Executed ----> OnInputReleased");
         }
 
         if (Input.GetMouseButtonDown(0) && !IsPointerOverUIElement())
         {
             _isTouching = true;
             InputSignals.Instance.onInputTaken?.Invoke();
-            Debug.LogWarning("Executed ----> OnInputTaken");
             if (!_isFirstTimeTouchTaken)
             {
                 _isFirstTimeTouchTaken = true;
                 InputSignals.Instance.onFirstTimeTouchTaken?.Invoke();
-                Debug.LogWarning("Executed ----> OnFirstTimeTouchTaken");
             }
 
             _mousePosition = Input.mousePosition;
@@ -125,7 +128,7 @@ public class InputManager : MonoBehaviour
                         HorizontalValue = _moveVector.x,
                         ClampValues = _data.ClampValues
                     });
-                    Debug.LogWarning($"Executed ----> OnInputDraggged");
+                    Debug.Log("Bak hareket ediyorsun işte !");
                 }
 
             }

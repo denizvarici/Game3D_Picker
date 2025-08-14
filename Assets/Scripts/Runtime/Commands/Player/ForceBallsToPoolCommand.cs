@@ -1,3 +1,6 @@
+using System.Linq;
+using UnityEngine;
+
 public class ForceBallsToPoolCommand
 {
     private PlayerManager _manager;
@@ -11,6 +14,20 @@ public class ForceBallsToPoolCommand
 
     internal void Execute()
     {
-        
+        var transform1 = _manager.transform;
+        var position1 = transform1.position;
+        var forcePos = new Vector3(position1.x, position1.y-1, position1.z+.75f);
+
+        var collider = Physics.OverlapSphere(forcePos, 2f);
+
+        var collectableColliderList = collider.Where(col => col.CompareTag("Collectable")).ToList();
+
+        foreach (var col in collectableColliderList)
+        {
+            if (col.GetComponent<Rigidbody>() == null) continue;
+            var rb = col.GetComponent<Rigidbody>();
+            rb.AddForce(new Vector3(0, _forceData.ForceParameters.y, _forceData.ForceParameters.z), ForceMode.Impulse);
+        }
+        collectableColliderList.Clear();
     }
 }
